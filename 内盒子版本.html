@@ -2,9 +2,54 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Title</title>
 </head>
 <body>
-$END$
+<div id="out">
+    <!--    <img src="default.png" alt="">-->
+    <!--    <img src="default.png" alt="">-->
+    <!--    <img src="default.png" alt="">-->
+</div>
 </body>
+<script>
+    const out = document.getElementById('out')
+    const defaultImg = 'default.png'
+    let imgsSrc = ['test1.png', 'test2.png', 'test3.png']
+
+    function createImgs() {
+        for (let i = 0; i < imgsSrc.length; i++) {
+            let img = document.createElement('img')
+            img.src = defaultImg
+            out.appendChild(img)
+        }
+    }
+
+
+    function lazyLoadImg() {
+        let imgs = out.querySelectorAll('img')
+        out.onscroll = function () {
+            for (let i = 0; i < imgs.length; i++) {
+                if (imgs[i].offsetTop < (out.scrollTop + out.clientHeight)) {
+                    console.log(i, '图片来了')
+                    imgs[i].src = imgsSrc[i]
+                }
+            }
+        }
+    }
+
+    createImgs()
+    lazyLoadImg()
+</script>
+<style>
+    #out {
+        position: relative;
+        width: 300px;
+        height: 200px;
+        overflow: scroll;
+    }
+
+    img {
+
+    }
+</style>
 </html>
