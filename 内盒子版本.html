@@ -15,12 +15,14 @@
     const out = document.getElementById('out')
     const defaultImg = 'default.png'
     let imgsSrc = ['test1.png', 'test2.png', 'test3.png']
+    let changeMark=[]
 
     function createImgs() {
         for (let i = 0; i < imgsSrc.length; i++) {
             let img = document.createElement('img')
             img.src = defaultImg
             out.appendChild(img)
+            changeMark.push(false)
         }
     }
 
@@ -29,9 +31,10 @@
         let imgs = out.querySelectorAll('img')
         out.onscroll = function () {
             for (let i = 0; i < imgs.length; i++) {
-                if (imgs[i].offsetTop < (out.scrollTop + out.clientHeight)) {
+                if (imgs[i].offsetTop < (out.scrollTop + out.clientHeight)&&!changeMark[i]) {
                     console.log(i, '图片来了')
                     imgs[i].src = imgsSrc[i]
+                    changeMark[i]=true
                 }
             }
         }
